@@ -11,7 +11,16 @@ def main(page: ft.Page):
         lines = file.readlines()
         for line in lines:
             greeting_history.append(line.strip())
-    greeting_text.value = ", \n".join(greeting_history)
+    greeting_text.value = "History of greetings: \n" + ", \n".join(greeting_history)
+
+    def refactor_history():
+        save_five = greeting_history[-5:]
+        greeting_history.clear()
+        greeting_history.extend(save_five)
+        with open('history.txt', 'w') as file:
+            for name in greeting_history:
+                file.write(name.strip() + '\n')
+        page.update()
 
     def text_name(e):
         name = text_input.value.strip()
@@ -24,9 +33,8 @@ def main(page: ft.Page):
             text_hello.color = ft.Colors.GREEN_900
             text_input.value = ""
             greeting_history.append(name)
-            with open('history.txt', 'a') as file:
-                file.write(name + '\n')
-            greeting_text.value = ", \n".join(greeting_history)
+            refactor_history()
+            greeting_text.value = "History of greetings: \n" + ", \n".join(greeting_history)
         page.update() # page.update() is no longer necessary
 
     text_hello = ft.Text("Hello", color=ft.Colors.RED_900)
