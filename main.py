@@ -13,7 +13,7 @@ def main(page: ft.Page):
             greeting_history.append(line.strip())
     greeting_text.value = "History of greetings: \n" + ", \n".join(greeting_history)
 
-    def refactor_history(e):
+    def refactor_history():
         save_five = greeting_history[-5:]
         greeting_history.clear()
         greeting_history.extend(save_five)
